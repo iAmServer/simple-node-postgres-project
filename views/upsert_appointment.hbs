@@ -1,0 +1,58 @@
+ <div class="row">
+    <div class="col-xl-12 grid-margin">
+        <div class="card stretch-card mb-3">
+            <div class="card-body d-flex flex-wrap justify-content-between">
+                <div>
+                    {{#if client}}
+                    <h4 class="font-weight-semibold mb-1 text-black"> {{client.lname}} {{client.fname}} </h4>
+                    {{else}}
+                    <h4 class="font-weight-semibold mb-1 text-black"> {{appointment.lname}} {{appointment.fname}} </h4>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                {{#if appointment}}
+                    <h4 class="card-title">Edit Appointment</h4>
+                    <br/>
+                {{else}}
+                    <h4 class="card-title">Add Appointment</h4>    
+                    <p class="card-description">Fill all box</p>
+                {{/if}}
+            <form class="forms-sample" action="/appointment/upsert/details" method="POST">
+                <input type="hidden" name="id" value="{{appointment.id}}">
+                {{#if client}}
+                <input type="hidden" name="client" value="{{client.id}}">
+                {{else}}
+                <input type="hidden" name="client" value="{{appointment.client}}">
+                {{/if}}
+                <div class="form-group">
+                    <label for="date">Appointment Date</label>
+                    {{#if (ne appointment)}}
+                    <input type="date" required class="form-control" id="date" min="1997-01-01" max="2030-12-31" name="date" placeholder="(###) ###-####" />
+                    {{else}}
+                    <p class="card-description">{{dateFormat appointment.date}}</p>
+                    {{/if}}
+                </div>
+                <div class="form-group">
+                    <label for="details">Appointment Details</label>
+                    <textarea name="details" required id="details" class="form-control" rows="10">{{appointment.details}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="medication">Prescribed Medications</label>
+                    <textarea name="medication" id="medication" class="form-control" rows="10">{{appointment.medication}}</textarea>
+                </div>
+                {{#if client}}
+                    <button type="submit" class="btn btn-primary mr-2"> Update Appointment </button>
+                {{else}}
+                    <button type="submit" class="btn btn-primary mr-2"> Add Appointment </button>
+                {{/if}}
+                <a class="btn btn-light" href="/">Cancel</a>
+            </form>
+            </div>
+        </div>
+    </div>
+ </div>

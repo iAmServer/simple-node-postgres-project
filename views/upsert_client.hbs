@@ -1,0 +1,46 @@
+ <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            {{#if appointment}}
+                <h4 class="card-title">Edit Appointment</h4>
+                <p class="card-description">Fill all box</p>
+            {{else}}
+                <h4 class="card-title">Add Appointment</h4>    
+                <p class="card-description">Fill all box</p>
+            {{/if}}
+        <form class="forms-sample" action="/client/upsert/details" method="POST">
+            <input type="hidden" name="id" value="{{client.id}}">
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" required class="form-control" id="fname" name="fname" value="{{client.fname}}" placeholder="First Name" />
+            </div>
+            <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" required class="form-control" id="lname" name="lname" value="{{client.lname}}" placeholder="Last Name" />
+            </div>
+            {{#if (ne client)}}
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" required class="form-control" id="email" name="email" value="{{client.email}}" placeholder="Email" />
+                </div>
+            {{/if}}
+             <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" required class="form-control" id="phone" name="phone" value="{{client.phone}}" placeholder="(###) ###-####" />
+            </div>
+            <div class="form-group">
+                <label for="email">Address</label>
+                <textarea name="address" required id="address" class="form-control" rows="10">{{client.address}}</textarea>
+            </div>
+            {{#if client}}
+                <button type="submit" class="btn btn-primary mr-2"> Update </button>
+            {{else}}
+                <button type="submit" class="btn btn-primary mr-2"> Add New </button>
+            {{/if}}
+            <a class="btn btn-light" href="/">Cancel</a>
+        </form>
+        </div>
+    </div>
+    </div>
+ </div>
